@@ -11,37 +11,35 @@ O processamento é estruturado como um pipeline de quatro etapas, executadas seq
 
 O projeto segue uma sequência definida de processamento:
 
-┌──────────────────────────────┐
-│          main_2.py           │
-│         Orquestrador         │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│     1. CompetenciaFolha_2.py │
-│        Análise da Folha      │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│       2. FaltasSeap_2.py     │
-│       Cruzamento com SEAP    │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│        3. vigencia_2.py      │
-│      Validação de Vínculos   │
-└──────────────┬───────────────┘
-               │
-               ▼
-┌──────────────────────────────┐
-│       4. formatação_2.py     │
-│    Formatação dos Relatórios │
-└──────────────┬───────────────┘
-               │
-               ▼
-        📁 Relatórios Excel
+```mermaid
+flowchart TD
+    A["🎛️ main_2.py<br/><b>Orquestrador</b>"]
+    B["📑 CompetenciaFolha_2.py<br/><b>Análise da Folha</b>"]
+    C["🌐 FaltasSeap_2.py<br/><b>Cruzamento com SEAP</b>"]
+    D["🔗 vigencia_2.py<br/><b>Validação de Vínculos</b>"]
+    E["🎨 formatação_2.py<br/><b>Formatação dos Relatórios</b>"]
+    F["📊 Relatórios Excel"]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+
+    classDef orchestrator fill:#6f42c1,color:#fff,stroke:#5a32a3,stroke-width:2px;
+    classDef folha fill:#d1e7dd,color:#0f5132,stroke:#198754,stroke-width:2px;
+    classDef seap fill:#cfe2ff,color:#084298,stroke:#0d6efd,stroke-width:2px;
+    classDef vigencia fill:#fff3cd,color:#664d03,stroke:#ffc107,stroke-width:2px;
+    classDef formatacao fill:#e2d9f3,color:#432874,stroke:#6f42c1,stroke-width:2px;
+    classDef resultado fill:#d3d3d3,color:#212529,stroke:#6c757d,stroke-width:2px;
+
+    class A orchestrator;
+    class B folha;
+    class C seap;
+    class D vigencia;
+    class E formatacao;
+    class F resultado;
+```
 
 ⚙️ Etapas do Pipeline
 1. 📑 Análise da Folha — CompetenciaFolha_2.py
@@ -99,13 +97,30 @@ Vínculo	Vínculo funcional
 Data Inicial	Início do período da falta
 Data Final	Final do período da falta
 
-Visualmente:
+### 🔐 Critérios de correspondência
 
-Matrícula    ──┐
-Vínculo      ──┤
-Data Inicial ──┼──► Correspondência SEAP
-Data Final   ──┘
+Um registro somente é considerado **encontrado** quando *todos os quatro campos* são correspondentes entre as bases.
 
+```mermaid
+flowchart LR
+    A["Matrícula"]
+    B["Vínculo"]
+    C["Data Inicial"]
+    D["Data Final"]
+
+    E["🔎 Correspondência SEAP"]
+
+    A --> E
+    B --> E
+    C --> E
+    D --> E
+
+    classDef campo fill:#cfe2ff,color:#084298,stroke:#0d6efd,stroke-width:2px;
+    classDef resultado fill:#d1e7dd,color:#0f5132,stroke:#198754,stroke-width:2px;
+
+    class A,B,C,D campo;
+    class E resultado;
+```
 
 🔎 Regra de validação: a correspondência somente é confirmada quando todos os critérios são atendidos simultaneamente.
 
@@ -193,11 +208,12 @@ Além de controlar a ordem de execução, o orquestrador:
 
 Dessa forma, o usuário não precisa executar cada script manualmente.
 
-📁 Estrutura do projeto
+## 📁 Estrutura do projeto
 
-Uma estrutura conceitual do projeto pode ser organizada da seguinte maneira:
+A estrutura conceitual do projeto pode ser organizada da seguinte maneira:
 
-📦 projeto
+```text
+📦 projeto/
 │
 ├── 📄 main_2.py
 ├── 📄 CompetenciaFolha_2.py
@@ -215,7 +231,7 @@ Uma estrutura conceitual do projeto pode ser organizada da seguinte maneira:
 │   └── 📘 FaltasSEAP.xlsx
 │
 └── 📄 README.md
-
+```
 
 💡 Observação: a estrutura acima representa a organização conceitual do projeto. Os diretórios podem variar de acordo com a configuração utilizada no ambiente de execução.
 
@@ -263,61 +279,97 @@ Tecnologia	Utilização
 📁 Excel (.xlsx)	Formato utilizado para entrada e saída dos dados
 🏗️ Arquitetura
 
-O projeto segue uma arquitetura modular, na qual cada script possui uma responsabilidade específica dentro do processo.
+## 🏗️ Arquitetura
 
-                         ┌─────────────────┐
-                         │    main_2.py    │
-                         │   Orquestrador  │
-                         └────────┬────────┘
-                                  │
-             ┌────────────────────┼────────────────────┐
-             │                    │                    │
-             ▼                    ▼                    ▼
-       ┌───────────┐        ┌───────────┐       ┌───────────┐
-       │   Folha   │        │   SEAP    │       │ Vigência  │
-       │  Análise  │        │Cruzamento │       │ Validação │
-       └─────┬─────┘        └─────┬─────┘       └─────┬─────┘
-             │                    │                    │
-             └────────────────────┼────────────────────┘
-                                  │
-                                  ▼
-                         ┌─────────────────┐
-                         │   Formatação    │
-                         │      Excel      │
-                         └────────┬────────┘
-                                  │
-                                  ▼
-                         📊 Relatórios finais
+O projeto segue uma **arquitetura modular**, na qual cada script possui uma responsabilidade específica dentro do processo.
 
+```mermaid
+flowchart TD
+    A["🎛️ main_2.py<br/><b>Orquestrador</b>"]
+
+    B["📑 CompetenciaFolha_2.py<br/><b>Folha · Análise</b>"]
+    C["🌐 FaltasSeap_2.py<br/><b>SEAP · Cruzamento</b>"]
+    D["🔗 vigencia_2.py<br/><b>Vigência · Validação</b>"]
+
+    E["🎨 formatação_2.py<br/><b>Formatação Excel</b>"]
+    F["📊 Relatórios finais"]
+
+    A --> B
+    A --> C
+    A --> D
+
+    B --> E
+    C --> E
+    D --> E
+
+    E --> F
+
+    classDef orchestrator fill:#6f42c1,color:#fff,stroke:#5a32a3,stroke-width:2px;
+    classDef folha fill:#d1e7dd,color:#0f5132,stroke:#198754,stroke-width:2px;
+    classDef seap fill:#cfe2ff,color:#084298,stroke:#0d6efd,stroke-width:2px;
+    classDef vigencia fill:#fff3cd,color:#664d03,stroke:#ffc107,stroke-width:2px;
+    classDef formatacao fill:#e2d9f3,color:#432874,stroke:#6f42c1,stroke-width:2px;
+    classDef resultado fill:#d3d3d3,color:#212529,stroke:#6c757d,stroke-width:2px;
+
+    class A orchestrator;
+    class B folha;
+    class C seap;
+    class D vigencia;
+    class E formatacao;
+    class F resultado;
+```
 
 A separação das responsabilidades facilita a manutenção, evolução e identificação de falhas em cada etapa do processamento.
+## 📌 Resumo
 
-📌 Resumo
-Etapa	Arquivo	Responsabilidade
-1	CompetenciaFolha_2.py	Verificação de descontos na folha
-2	FaltasSeap_2.py	Cruzamento com dados do SEAP
-3	vigencia_2.py	Validação de vínculos vigentes
-4	formatação_2.py	Padronização e formatação dos relatórios
-🎛️	main_2.py	Orquestração de todo o pipeline
-👨‍💻 Fluxo resumido
-📥 Dados de entrada
-        │
-        ▼
-📑 Análise da Folha
-        │
-        ▼
-🌐 Cruzamento SEAP
-        │
-        ▼
-🔗 Validação de Vínculos
-        │
-        ▼
-🎨 Formatação
-        │
-        ▼
-📊 Relatórios Excel
+| Etapa | Arquivo | Responsabilidade |
+|:---:|---|---|
+| **1** | `CompetenciaFolha_2.py` | Verificação de descontos na folha |
+| **2** | `FaltasSeap_2.py` | Cruzamento com dados do SEAP |
+| **3** | `vigencia_2.py` | Validação de vínculos vigentes |
+| **4** | `formatação_2.py` | Padronização e formatação dos relatórios |
+| 🎛️ | `main_2.py` | **Orquestração de todo o pipeline** |
 
-🎯 Objetivo
+---
+
+## 👨‍💻 Fluxo resumido
+
+```mermaid
+flowchart TD
+    A["📥 Dados de entrada"]
+    B["📑 Análise da Folha"]
+    C["🌐 Cruzamento SEAP"]
+    D["🔗 Validação de Vínculos"]
+    E["🎨 Formatação"]
+    F["📊 Relatórios Excel"]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+
+    classDef entrada fill:#e9ecef,color:#212529,stroke:#6c757d,stroke-width:2px;
+    classDef folha fill:#d1e7dd,color:#0f5132,stroke:#198754,stroke-width:2px;
+    classDef seap fill:#cfe2ff,color:#084298,stroke:#0d6efd,stroke-width:2px;
+    classDef vigencia fill:#fff3cd,color:#664d03,stroke:#ffc107,stroke-width:2px;
+    classDef formatacao fill:#e2d9f3,color:#432874,stroke:#6f42c1,stroke-width:2px;
+    classDef resultado fill:#d3d3d3,color:#212529,stroke:#6c757d,stroke-width:2px;
+
+    class A entrada;
+    class B folha;
+    class C seap;
+    class D vigencia;
+    class E formatacao;
+    class F resultado;
+```
+---
+
+## 🎯 Objetivo
+
+> **Automatizar e padronizar o processo de análise de faltas**, reduzindo atividades manuais, centralizando as etapas de processamento e facilitando a identificação de inconsistências entre as diferentes fontes de dados.
+
+O pipeline foi desenvolvido para proporcionar um processo **mais organizado, rastreável e consistente**, desde a entrada dos dados até a geração dos relatórios finais.
 
 Automatizar e padronizar o processo de análise de faltas, reduzindo atividades manuais, centralizando as etapas de processamento e facilitando a identificação de inconsistências entre as diferentes fontes de dados.
 
