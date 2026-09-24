@@ -43,7 +43,7 @@ def processar_faltas(rubrica_falta=5040):
     PASTA_VIGENCIA = PASTA_BASE / "Vigencia"
 
     # Resultado será salvo em processo
-    ARQUIVO_SAIDA = PASTA_BASE / "Resultado_Faltas.xlsx"
+    ARQUIVO_SAIDA = PASTA_PRINCIPAL / "FaltasFolha.xlsx"
 
     # ============================================================
     # MOSTRAR CAMINHOS
