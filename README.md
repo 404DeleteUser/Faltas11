@@ -1,5 +1,5 @@
 <h1 align="center">📊 Automação de Análise de Faltas</h1> <p align="center"> <strong>Pipeline automatizado para processamento, cruzamento e validação de dados</strong> <br> de faltas, folhas de pagamento e informações provenientes do SEAP. </p> <p align="center"> 🐍 Python &nbsp;•&nbsp; 📊 Pandas &nbsp;•&nbsp; 📗 OpenPyXL &nbsp;•&nbsp; 📁 Excel </p>
-📌 Sobre o projeto
+<h2>📌 Sobre o projeto</h2>
 
 Este projeto automatiza o processo de análise e validação de faltas, realizando o cruzamento entre diferentes fontes de dados e gerando relatórios consolidados em Excel para conferência.
 
@@ -41,7 +41,7 @@ flowchart TD
     class F resultado;
 ```
 
-⚙️ Etapas do Pipeline
+<h2>⚙️ Etapas do Pipeline</h2>
 1. 📑 Análise da Folha — CompetenciaFolha_2.py
 
 Responsável por verificar se as faltas registradas foram devidamente descontadas na folha de pagamento.
@@ -179,7 +179,7 @@ FaltasSEAP.xlsx	🔵 Azul
 
 🎨 A diferenciação visual facilita a identificação do tipo de relatório durante a conferência dos resultados.
 
-🎛️ Orquestração — main_2.py
+<h2>🎛️ Orquestração</h2>
 
 O main_2.py é o ponto de entrada principal do projeto.
 
@@ -208,7 +208,7 @@ Além de controlar a ordem de execução, o orquestrador:
 
 Dessa forma, o usuário não precisa executar cada script manualmente.
 
-## 📁 Estrutura do projeto
+<h2>📁 Estrutura do projeto</h2>
 
 A estrutura conceitual do projeto pode ser organizada da seguinte maneira:
 
@@ -235,7 +235,7 @@ A estrutura conceitual do projeto pode ser organizada da seguinte maneira:
 
 💡 Observação: a estrutura acima representa a organização conceitual do projeto. Os diretórios podem variar de acordo com a configuração utilizada no ambiente de execução.
 
-🚀 Execução
+<h2>🚀 Execução</h2>
 
 Com todas as dependências instaladas e os arquivos de entrada devidamente posicionados, basta executar o script principal:
 
@@ -257,7 +257,7 @@ O pipeline será executado automaticamente na seguinte sequência:
 
 Ao final do processamento, o tempo total de execução será apresentado no terminal.
 
-📤 Resultados
+<h2>📤 Resultados</h2>
 
 Ao concluir o processamento, o projeto gera relatórios Excel contendo os resultados das análises.
 
@@ -271,7 +271,7 @@ Resultado do cruzamento entre a base interna e os registros provenientes do SEAP
 
 Após a geração, os arquivos passam pela etapa de formatação, facilitando a leitura, conferência e análise dos resultados.
 
-🧩 Tecnologias utilizadas
+<h2>🧩 Tecnologias utilizadas</h2>
 Tecnologia	Utilização
 🐍 Python	Linguagem principal do projeto
 📊 Pandas	Processamento e manipulação dos dados
@@ -279,7 +279,7 @@ Tecnologia	Utilização
 📁 Excel (.xlsx)	Formato utilizado para entrada e saída dos dados
 🏗️ Arquitetura
 
-## 🏗️ Arquitetura
+<h2>🏗️ Arquitetura</h2>
 
 O projeto segue uma **arquitetura modular**, na qual cada script possui uma responsabilidade específica dentro do processo.
 
@@ -320,7 +320,7 @@ flowchart TD
 ```
 
 A separação das responsabilidades facilita a manutenção, evolução e identificação de falhas em cada etapa do processamento.
-## 📌 Resumo
+<h2>📌 Resumo</h2>
 
 | Etapa | Arquivo | Responsabilidade |
 |:---:|---|---|
@@ -332,7 +332,7 @@ A separação das responsabilidades facilita a manutenção, evolução e identi
 
 ---
 
-## 👨‍💻 Fluxo resumido
+<h2>👨‍💻 Fluxo resumido</h2>
 
 ```mermaid
 flowchart TD
@@ -365,7 +365,7 @@ flowchart TD
 ```
 ---
 
-## 🎯 Objetivo
+<h2>🎯 Objetivo</h2>
 
 > **Automatizar e padronizar o processo de análise de faltas**, reduzindo atividades manuais, centralizando as etapas de processamento e facilitando a identificação de inconsistências entre as diferentes fontes de dados.
 
